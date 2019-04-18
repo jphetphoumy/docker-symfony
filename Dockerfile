@@ -12,7 +12,12 @@ RUN apk add --no-cache php7 \
                        php7-mbstring \
                        php7-xml \
                        php7-pdo \
-                       php7-ctype
+                       php7-ctype \
+                       php7-curl \
+                       php7-zip \
+                       php7-simplexml \
+                       php7-session\
+                       yarn
 
 # Download and install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -22,7 +27,4 @@ RUN php -r "if (hash_file('sha384', 'composer-setup.php') === '48e3236262b34d309
 
 # Run composer setup 
 RUN php composer-setup.php --install-dir=bin --filename=composer
-ADD . /application
-WORKDIR /application
-RUN cp app/config/parameters.yml.dist  app/config/parameters.yml && \
-    composer install 
+

@@ -1,0 +1,17 @@
+dist: trusty
+language: php
+
+jobs:
+    include:
+        - stage: Build docker symfony
+          script:
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            - docker build -t symfony .
+            - docker images
+            - docker tag symfony $DOCKER_USERNAME/symfony:1.0
+            - docker push $DOCKER_USERNAME/symfony
+        - stage: test
+          script: 
+            - docker run --rm $DOCKER_USERNAME/symfony composer --version
+            - docker run --rm $DOCKER_USERNAME/symfony yarn --version
+            
