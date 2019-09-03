@@ -12,6 +12,4 @@ jobs:
             - docker push $DOCKER_USERNAME/symfony
         - stage: test
           script: 
-            - docker run --rm $DOCKER_USERNAME/symfony composer --version
-            - docker run --rm $DOCKER_USERNAME/symfony yarn --version
-            
+            - docker run --rm $DOCKER_USERNAME/symfony composer --version            
